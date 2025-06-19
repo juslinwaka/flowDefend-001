@@ -1,16 +1,16 @@
 # flowDefend-001
 
-# 🛡️ LangSec – AI Cybersecurity Assistant | #Langflow
+# 🛡️ FlowDefend – AI Cybersecurity Assistant | #Langflow
 
-> **LangSec** is an intelligent, Langflow-powered chatbot designed to protect businesses from digital threats — one message at a time.
+> **FlowDefend** is an intelligent, Langflow-powered chatbot designed to protect businesses from digital threats — one message at a time.
 
-LangSec acts as your 24/7 cybersecurity assistant. It helps employees identify phishing emails, understand security policies, respond to incidents, and stay cyber-smart — all through an intuitive chat interface built with [Langflow](https://github.com/logspace-ai/langflow).
+FlowDefend acts as your 24/7 cybersecurity assistant. It helps employees identify phishing emails, understand security policies, respond to incidents, and stay cyber-smart — all through an intuitive chat interface built with [Langflow](https://github.com/logspace-ai/langflow).
 
-## 🚀 Why LangSec?
+## 🚀 Why FlowDefend?
 
 Cyberattacks are rising fast. Most breaches start with human error — phishing, weak passwords, or policy confusion.
 
-LangSec is here to:
+FlowDefend is here to:
 - 👀 Detect suspicious emails
 - 🧠 Answer security policy questions (powered by RAG)
 - 🛠️ Guide first response to threats
@@ -59,5 +59,5 @@ Check out the video submission for the **Langflow June Challenge**:
 ### 1. Clone this repository
 
 ```bash
-git clone https://github.com/your-username/langsec
+git clone https://github.com/juslinwaka/flowdefend-001.git
 cd langsec
