@@ -60,4 +60,4 @@ Check out the video submission for the **Langflow June Challenge**:
 
 ```bash
 git clone https://github.com/juslinwaka/flowdefend-001.git
-cd langsec
+cd flowdefend-001
