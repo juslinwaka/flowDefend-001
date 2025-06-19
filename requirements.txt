@@ -1,0 +1,25 @@
+# Langflow core dependencies
+langflow @ git+https://github.com/logspace-ai/langflow.git
+
+# Language models and APIs
+openai>=1.0.0
+
+# Optional integrations
+python-dotenv
+gspread           # Google Sheets
+slack_sdk         # Slack bot integration
+requests          # for external API calls (like VirusTotal)
+
+# Data loading (for RAG)
+PyPDF2
+docx2txt
+unstructured     # for multiple file types
+
+# Vector stores (for RAG)
+faiss-cpu
+
+# Optional: Jupyter Notebook for quick experiments
+notebook
+
+#
+python-dotenv

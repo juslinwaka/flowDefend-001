@@ -1,0 +1,86 @@
+{
+  "name": "LangSec RAG – Cybersecurity Policy Assistant",
+  "description": "Langflow chatbot using Retrieval-Augmented Generation for security questions.",
+  "nodes": [
+    {
+      "id": "input-1",
+      "type": "ChatInput",
+      "position": [100, 100],
+      "data": {
+        "name": "User Input"
+      }
+    },
+    {
+      "id": "retriever-1",
+      "type": "VectorStoreRetriever",
+      "position": [300, 100],
+      "data": {
+        "name": "Policy RAG",
+        "vectorstore": {
+          "type": "FAISS",
+          "path": "./rag_index"
+        }
+      }
+    },
+    {
+      "id": "retrieval_prompt",
+      "type": "Prompt",
+      "position": [500, 100],
+      "data": {
+        "name": "Policy Q&A Prompt",
+        "template": "Answer the following user question using context from company security policies:\n\nContext:\n{{context}}\n\nQuestion:\n{{question}}",
+        "input_variables": ["context", "question"]
+      }
+    },
+    {
+      "id": "model-1",
+      "type": "ChatOpenAI",
+      "position": [700, 100],
+      "data": {
+        "name": "OpenAI GPT",
+        "temperature": 0.2,
+        "model_name": "gpt-3.5-turbo"
+      }
+    },
+    {
+      "id": "output-1",
+      "type": "ChatOutput",
+      "position": [900, 100],
+      "data": {
+        "name": "Output"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "input-1",
+      "target": "retriever-1",
+      "sourceHandle": "output",
+      "targetHandle": "input"
+    },
+    {
+      "source": "retriever-1",
+      "target": "retrieval_prompt",
+      "sourceHandle": "output",
+      "targetHandle": "context"
+    },
+    {
+      "source": "input-1",
+      "target": "retrieval_prompt",
+      "sourceHandle": "output",
+      "targetHandle": "question"
+    },
+    {
+      "source": "retrieval_prompt",
+      "target": "model-1",
+      "sourceHandle": "prompt",
+      "targetHandle": "prompt"
+    },
+    {
+      "source": "model-1",
+      "target": "output-1",
+      "sourceHandle": "output",
+      "targetHandle": "input"
+    }
+  ]
+}
