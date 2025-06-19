@@ -1,5 +1,5 @@
 # Langflow core dependencies
-langflow @ git+https://github.com/logspace-ai/langflow.git
+#langflow @ git+https://github.com/logspace-ai/langflow.git
 
 # Language models and APIs
 openai>=1.0.0
@@ -17,6 +17,8 @@ unstructured     # for multiple file types
 
 # Vector stores (for RAG)
 faiss-cpu
+langchain
+
 
 # Optional: Jupyter Notebook for quick experiments
 notebook

@@ -6,6 +6,43 @@ from langchain.text_splitter import CharacterTextSplitter
 import requests
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+from dotenv import load_dotenv
+from datetime import datetime
+import traceback
+
+# Load .env
+load_dotenv()
+
+# Access API keys securely
+openai_key = os.getenv("OPENAI_API_KEY")
+google_sheet_id = os.getenv("GOOGLE_SHEET_ID")
+slack_webhook = os.getenv("SLACK_WEBHOOK_URL")
+vt_api_key = os.getenv("VIRUSTOTAL_API_KEY")
+
+# Print status (optional)
+print("🔐 API Keys loaded:")
+print(f"OpenAI Key Loaded: {'✅' if openai_key else '❌'}")
+print(f"Google Sheet ID: {google_sheet_id}")
+print(f"Slack Webhook: {'✅' if slack_webhook else '❌'}")
+print(f"VirusTotal Key: {'✅' if vt_api_key else '❌'}")
+
+# Optional: Test OpenAI connection
+try:
+    import openai
+    openai.api_key = openai_key
+
+    test = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": "Say hi from LangSec!"}],
+    )
+    print("🧠 OpenAI Test Response:", test.choices[0].message['content'])
+
+except Exception as e:
+    print("❌ Error connecting to OpenAI:", e)
+
+# Optional: Add other quick tests or integrations
+# For example: Google Sheets auth, Slack message test, etc.
+
 
 DOCS_PATH = "./docs"
 INDEX_PATH = "./rag_index"
@@ -47,16 +84,24 @@ def build_vector_index():
 
 def log_to_google_sheets(question, answer):
     try:
-        scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-        creds = ServiceAccountCredentials.from_json_keyfile_name("path/to/creds.json", scope)
+        scope = [
+            "https://spreadsheets.google.com/feeds",
+            "https://www.googleapis.com/auth/drive"
+        ]
+        creds = ServiceAccountCredentials.from_json_keyfile_name("service_account.json", scope)
         client = gspread.authorize(creds)
 
         sheet_id = os.getenv("GOOGLE_SHEET_ID")
         sheet = client.open_by_key(sheet_id).sheet1
-        sheet.append_row([question, answer])
+
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        sheet.append_row([question, answer, timestamp])
+
         print("✅ Logged to Google Sheets.")
     except Exception as e:
         print("❌ Sheet logging failed:", e)
+        traceback.print_exc()
+
 
 def scan_url_with_virustotal(url):
     api_key = os.getenv("VIRUSTOTAL_API_KEY")
